@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
+    <meta charset="UTF-8">
     <title>Invitación de boda</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 
     <style>
         html,
@@ -13,16 +18,34 @@
             width: 100%;
         }
 
+        /* ======================================================
+           PORTADA — diseño tipo "carta formal"
+           ====================================================== */
+
+        :root {
+            --tinta: #3a2e22;
+            --papel: #fbf6ec;
+            --papel-exterior: #efe6d3;
+            --oro: #a9823e;
+            --oro-claro: #c9aa6c;
+            --vino: #6e2a35;
+            --vino-claro: #8a3a46;
+            --linea: #d9c9a3;
+        }
+
         #inicio {
             position: fixed;
             inset: 0;
-            background: white;
+            z-index: 999;
 
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 24px;
+            box-sizing: border-box;
 
-            z-index: 999;
+            background:
+                radial-gradient(circle at 50% 0%, #f6efdd 0%, var(--papel-exterior) 62%, #e6dabd 100%);
 
             opacity: 1;
             transition:
@@ -30,91 +53,186 @@
                 filter 1.5s ease;
         }
 
-
         #inicio.ocultar {
-
             opacity: 0;
-
             filter: blur(15px);
-
             pointer-events: none;
-
         }
 
         .portada {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            box-sizing: border-box;
+            padding: 56px 42px 44px;
             text-align: center;
-            animation: aparecer 2s ease;
+
+            background: var(--papel);
+            box-shadow:
+                0 0 0 1px var(--oro),
+                inset 0 0 0 6px var(--papel),
+                inset 0 0 0 7px var(--oro-claro),
+                0 25px 60px -20px rgba(58, 46, 34, 0.35);
         }
 
+        /* sello / monograma — elemento distintivo de la pieza */
+        .sello {
+            width: 78px;
+            height: 78px;
+            margin: 0 auto 26px;
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: radial-gradient(circle at 32% 28%, var(--vino-claro), var(--vino) 70%);
+            box-shadow:
+                0 0 0 1px var(--oro-claro),
+                0 0 0 3px var(--papel),
+                0 0 0 4px var(--oro),
+                0 8px 16px -6px rgba(110, 42, 53, 0.55);
+
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-size: 22px;
+            letter-spacing: 1px;
+            color: #ecd9b8;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+        }
 
         .texto-pequeno {
-            font-size: 18px;
-            letter-spacing: 3px;
-            color: #8d7355;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: var(--oro);
+            margin: 0;
         }
 
+        .divisor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        .divisor::before,
+        .divisor::after {
+            content: "";
+            height: 1px;
+            width: 46px;
+            background: var(--linea);
+        }
+
+        .divisor span {
+            width: 6px;
+            height: 6px;
+            transform: rotate(45deg);
+            background: var(--oro);
+            display: inline-block;
+        }
 
         h1 {
-            font-family: "Georgia", serif;
-            font-size: 55px;
-            font-weight: normal;
-            color: #5c4632;
-            margin: 20px 0;
+            font-family: "Playfair Display", serif;
+            font-size: 46px;
+            font-weight: 600;
+            color: var(--tinta);
+            margin: 0 0 6px;
+            line-height: 1.15;
         }
-
 
         h1 span {
             font-style: italic;
+            font-weight: 500;
+            color: var(--vino);
+            padding: 0 6px;
         }
 
+        .subtitulo {
+            font-family: "Cormorant Garamond", serif;
+            font-style: italic;
+            font-size: 18px;
+            color: #6b5c47;
+            margin: 0 0 30px;
+        }
 
         .fecha {
-            font-size: 22px;
-            color: #7c6650;
-            line-height: 1.6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 0 0 40px;
+            font-family: "Cormorant Garamond", serif;
+            color: var(--tinta);
+            line-height: 1.3;
         }
 
+        .fecha .dia {
+            font-family: "Playfair Display", serif;
+            font-size: 44px;
+            font-weight: 600;
+            color: var(--vino);
+        }
+
+        .fecha .separador {
+            width: 1px;
+            height: 42px;
+            background: var(--linea);
+        }
+
+        .fecha .mes-anio {
+            text-align: left;
+            font-size: 19px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
 
         #abrir {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
 
-            margin-top: 40px;
-
-            padding: 16px 45px;
-
-            border-radius: 50px;
-
-            border: 1px solid #b8905a;
-
+            padding: 14px 6px;
+            border: none;
+            border-top: 1px solid var(--oro);
+            border-bottom: 1px solid var(--oro);
             background: transparent;
 
-            color: #8b6b42;
-
-            font-size: 18px;
-
-            letter-spacing: 2px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--tinta);
 
             cursor: pointer;
-
-            transition: .4s;
-
+            transition: color .4s ease, letter-spacing .4s ease;
         }
 
+        #abrir .linea {
+            width: 22px;
+            height: 1px;
+            background: var(--oro);
+            transition: width .4s ease, background .4s ease;
+        }
 
         #abrir:hover {
-
-            background: #b8905a;
-
-            color: white;
-
+            color: var(--vino);
+            letter-spacing: 3.5px;
         }
 
-
-        #abrir span {
-
-            margin-left: 8px;
-
+        #abrir:hover .linea {
+            width: 34px;
+            background: var(--vino);
         }
 
+        #abrir:focus-visible {
+            outline: 2px solid var(--vino);
+            outline-offset: 4px;
+        }
 
         @keyframes aparecer {
 
@@ -129,6 +247,32 @@
             }
 
         }
+
+        @media (max-width: 480px) {
+            .portada {
+                padding: 44px 26px 34px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .fecha .dia {
+                font-size: 36px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .portada,
+            #inicio,
+            #inicio.ocultar {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        /* ====================================================== */
 
         #pdf-container {
             width: 100%;
@@ -268,24 +412,32 @@
 
         <div class="portada">
 
+            <div class="sello">M<span style="font-style:normal;color:#c9aa6c;margin:0 2px;">&</span>A</div>
+
             <p class="texto-pequeno">
                 Tenemos el honor de invitarte
             </p>
+
+            <div class="divisor"><span></span></div>
 
             <h1>
                 Mayelin <span>&</span> Agustin
             </h1>
 
-            <p class="fecha">
-                Nuestra boda
-                <br>
-                20 · Diciembre · 2026
+            <p class="subtitulo">
+                Solicitamos el honor de tu presencia en nuestra boda
             </p>
 
+            <div class="fecha">
+                <span class="dia">20</span>
+                <span class="separador"></span>
+                <span class="mes-anio">Diciembre<br>2026</span>
+            </div>
 
             <button id="abrir">
+                <span class="linea"></span>
                 Abrir invitación
-                <span>♡</span>
+                <span class="linea"></span>
             </button>
 
         </div>
@@ -319,6 +471,7 @@
     <script>
 
         const boton = document.getElementById("abrir");
+
 
         const musica = document.getElementById("musica");
 
