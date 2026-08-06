@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Invitación de boda</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            width: 100%;
+        }
+
+       #inicio {
+    position: fixed;
+    inset: 0;
+    background:
+        linear-gradient(
+            rgba(255,255,255,.85),
+            rgba(255,255,255,.95)
+        ),
+        url("fondo.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+}
+
+
+.portada {
+    text-align: center;
+    animation: aparecer 2s ease;
+}
+
+
+.texto-pequeno {
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #8d7355;
+}
+
+
+h1 {
+    font-family: "Georgia", serif;
+    font-size: 55px;
+    font-weight: normal;
+    color: #5c4632;
+    margin: 20px 0;
+}
+
+
+h1 span {
+    font-style: italic;
+}
+
+
+.fecha {
+    font-size: 22px;
+    color: #7c6650;
+    line-height: 1.6;
+}
+
+
+#abrir {
+
+    margin-top: 40px;
+
+    padding: 16px 45px;
+
+    border-radius: 50px;
+
+    border: 1px solid #b8905a;
+
+    background: transparent;
+
+    color: #8b6b42;
+
+    font-size: 18px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: .4s;
+
+}
+
+
+#abrir:hover {
+
+    background: #b8905a;
+
+    color:white;
+
+}
+
+
+#abrir span {
+
+    margin-left: 8px;
+
+}
+
+
+@keyframes aparecer {
+
+    from {
+        opacity:0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity:1;
+        transform: translateY(0);
+    }
+
+}
+
+        #pdf-container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        canvas {
+            display: block;
+            width: 100vw;
+            height: auto;
+            margin: 0 auto 10px auto;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+<div id="inicio">
+
+    <div class="portada">
+
+        <p class="texto-pequeno">
+            Tenemos el honor de invitarte
+        </p>
+
+        <h1>
+            Mayelin <span>&</span> Agustin
+        </h1>
+
+        <p class="fecha">
+            Nuestra boda
+            <br>
+            20 · Diciembre · 2026
+        </p>
+
+
+        <button id="abrir">
+            Abrir invitación
+            <span>♡</span>
+        </button>
+
+    </div>
+
+</div>
+
+
+<audio id="musica" loop>
+    <source src="audio.mp3" type="audio/mpeg">
+</audio>
+
+
+<div id="pdf-container"></div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+
+<script>
+
+const boton = document.getElementById("abrir");
+const musica = document.getElementById("musica");
+
+
+boton.addEventListener("click", async () => {
+
+    // Reproducir música
+    musica.play();
+
+
+    // Ocultar pantalla inicial
+    document.getElementById("inicio").style.display = "none";
+
+
+    // Cargar PDF
+    cargarPDF();
+
+});
+
+
+
+async function cargarPDF() {
+
+    const pdf = await pdfjsLib.getDocument("carta.pdf").promise;
+
+    const contenedor = document.getElementById("pdf-container");
+
+
+    for(let numero = 1; numero <= pdf.numPages; numero++) {
+
+
+        const pagina = await pdf.getPage(numero);
+
+
+        const viewportOriginal = pagina.getViewport({
+            scale: 1
+        });
+
+
+        // Ajustar al ancho del celular/PC
+        const escala = window.innerWidth / viewportOriginal.width;
+
+
+        const viewport = pagina.getViewport({
+            scale: escala
+        });
+
+
+        const canvas = document.createElement("canvas");
+
+        const contexto = canvas.getContext("2d");
+
+
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+
+
+        contenedor.appendChild(canvas);
+
+
+
+        await pagina.render({
+
+            canvasContext: contexto,
+
+            viewport: viewport
+
+        }).promise;
+
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>
