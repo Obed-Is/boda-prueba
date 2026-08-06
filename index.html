@@ -305,7 +305,7 @@
 
     </div>
 
-    <audio id="musica" loop>
+    <audio id="musica" preload="auto" loop>
         <source src="audio.mp3" type="audio/mpeg">
     </audio>
 
@@ -322,26 +322,30 @@
         const musica = document.getElementById("musica");
 
 
-        boton.addEventListener("click", () => {
+        const musica = document.getElementById("musica");
+
+        musica.load();
 
 
-            musica.play();
+        boton.addEventListener("click", async () => {
+
+            try {
+
+                await musica.play();
+
+                console.log("Música iniciada");
+
+            } catch (e) {
+
+                console.log("Error:", e);
+
+            }
+
+            document.getElementById("inicio")
+                .classList.add("ocultar");
 
 
-            const portada = document.getElementById("inicio");
-
-
-            portada.classList.add("ocultar");
-
-
-            setTimeout(() => {
-
-                portada.style.display = "none";
-
-                cargarPDF();
-
-            }, 1500);
-
+            cargarPDF();
 
         });
 
