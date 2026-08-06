@@ -1,125 +1,134 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Invitación de boda</title>
 
     <style>
-        html, body {
+        html,
+        body {
             margin: 0;
             padding: 0;
             background: #fff;
             width: 100%;
         }
 
-       #inicio {
-    position: fixed;
-    inset: 0;
-    background:
-        linear-gradient(
-            rgba(255,255,255,.85),
-            rgba(255,255,255,.95)
-        ),
-        url("fondo.jpg");
+        #inicio {
+            position: fixed;
+            inset: 0;
+            background: white;
 
-    background-size: cover;
-    background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+            z-index: 999;
 
-    z-index: 999;
-}
+            opacity: 1;
+            transition:
+                opacity 1.5s ease,
+                filter 1.5s ease;
+        }
 
 
-.portada {
-    text-align: center;
-    animation: aparecer 2s ease;
-}
+        #inicio.ocultar {
+
+            opacity: 0;
+
+            filter: blur(15px);
+
+            pointer-events: none;
+
+        }
+
+        .portada {
+            text-align: center;
+            animation: aparecer 2s ease;
+        }
 
 
-.texto-pequeno {
-    font-size: 18px;
-    letter-spacing: 3px;
-    color: #8d7355;
-}
+        .texto-pequeno {
+            font-size: 18px;
+            letter-spacing: 3px;
+            color: #8d7355;
+        }
 
 
-h1 {
-    font-family: "Georgia", serif;
-    font-size: 55px;
-    font-weight: normal;
-    color: #5c4632;
-    margin: 20px 0;
-}
+        h1 {
+            font-family: "Georgia", serif;
+            font-size: 55px;
+            font-weight: normal;
+            color: #5c4632;
+            margin: 20px 0;
+        }
 
 
-h1 span {
-    font-style: italic;
-}
+        h1 span {
+            font-style: italic;
+        }
 
 
-.fecha {
-    font-size: 22px;
-    color: #7c6650;
-    line-height: 1.6;
-}
+        .fecha {
+            font-size: 22px;
+            color: #7c6650;
+            line-height: 1.6;
+        }
 
 
-#abrir {
+        #abrir {
 
-    margin-top: 40px;
+            margin-top: 40px;
 
-    padding: 16px 45px;
+            padding: 16px 45px;
 
-    border-radius: 50px;
+            border-radius: 50px;
 
-    border: 1px solid #b8905a;
+            border: 1px solid #b8905a;
 
-    background: transparent;
+            background: transparent;
 
-    color: #8b6b42;
+            color: #8b6b42;
 
-    font-size: 18px;
+            font-size: 18px;
 
-    letter-spacing: 2px;
+            letter-spacing: 2px;
 
-    cursor: pointer;
+            cursor: pointer;
 
-    transition: .4s;
+            transition: .4s;
 
-}
-
-
-#abrir:hover {
-
-    background: #b8905a;
-
-    color:white;
-
-}
+        }
 
 
-#abrir span {
+        #abrir:hover {
 
-    margin-left: 8px;
+            background: #b8905a;
 
-}
+            color: white;
+
+        }
 
 
-@keyframes aparecer {
+        #abrir span {
 
-    from {
-        opacity:0;
-        transform: translateY(30px);
-    }
+            margin-left: 8px;
 
-    to {
-        opacity:1;
-        transform: translateY(0);
-    }
+        }
 
-}
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
 
         #pdf-container {
             width: 100%;
@@ -128,10 +137,125 @@ h1 span {
         }
 
         canvas {
+
             display: block;
+
             width: 100vw;
+
             height: auto;
+
             margin: 0 auto 10px auto;
+
+
+            opacity: 0;
+
+            transform: translateY(30px) scale(.98);
+
+            filter: blur(5px);
+
+
+            animation: aparecerPDF 1.8s ease forwards;
+
+        }
+
+
+        @keyframes aparecerPDF {
+
+            from {
+
+                opacity: 0;
+
+                transform:
+                    translateY(30px) scale(.98);
+
+                filter: blur(5px);
+
+            }
+
+
+            to {
+
+                opacity: 1;
+
+                transform:
+                    translateY(0) scale(1);
+
+                filter: blur(0);
+
+            }
+
+        }
+
+        #cargando {
+
+            position: fixed;
+            inset: 0;
+
+            background: white;
+
+            display: none;
+
+            justify-content: center;
+            align-items: center;
+
+            z-index: 998;
+
+        }
+
+
+        .loader {
+
+            text-align: center;
+
+            color: #8b6b42;
+
+            animation: aparecer 1s ease;
+
+        }
+
+
+        .anillo {
+
+            width: 50px;
+            height: 50px;
+
+            border: 3px solid #e8dccb;
+
+            border-top-color: #b8905a;
+
+            border-radius: 50%;
+
+            animation: girar 1s linear infinite;
+
+            margin: auto;
+
+        }
+
+
+        .loader p {
+
+            margin-top: 25px;
+
+            font-family: Georgia, serif;
+
+            font-size: 18px;
+
+            letter-spacing: 1px;
+
+        }
+
+
+
+        @keyframes girar {
+
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+
         }
     </style>
 
@@ -140,124 +264,153 @@ h1 span {
 <body>
 
 
-<div id="inicio">
+    <div id="inicio">
 
-    <div class="portada">
+        <div class="portada">
 
-        <p class="texto-pequeno">
-            Tenemos el honor de invitarte
-        </p>
+            <p class="texto-pequeno">
+                Tenemos el honor de invitarte
+            </p>
 
-        <h1>
-            Mayelin <span>&</span> Agustin
-        </h1>
+            <h1>
+                Mayelin <span>&</span> Agustin
+            </h1>
 
-        <p class="fecha">
-            Nuestra boda
-            <br>
-            20 · Diciembre · 2026
-        </p>
+            <p class="fecha">
+                Nuestra boda
+                <br>
+                20 · Diciembre · 2026
+            </p>
 
 
-        <button id="abrir">
-            Abrir invitación
-            <span>♡</span>
-        </button>
+            <button id="abrir">
+                Abrir invitación
+                <span>♡</span>
+            </button>
+
+        </div>
+
+    </div>
+    <div id="cargando">
+
+        <div class="loader">
+
+            <div class="anillo"></div>
+
+            <p>
+                Preparando nuestra invitación...
+            </p>
+
+        </div>
 
     </div>
 
-</div>
+    <audio id="musica" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
 
 
-<audio id="musica" loop>
-    <source src="audio.mp3" type="audio/mpeg">
-</audio>
+    <div id="pdf-container"></div>
 
 
-<div id="pdf-container"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+
+        const boton = document.getElementById("abrir");
+        const musica = document.getElementById("musica");
 
 
-<script>
-
-const boton = document.getElementById("abrir");
-const musica = document.getElementById("musica");
+        boton.addEventListener("click", () => {
 
 
-boton.addEventListener("click", async () => {
-
-    // Reproducir música
-    musica.play();
+            musica.play();
 
 
-    // Ocultar pantalla inicial
-    document.getElementById("inicio").style.display = "none";
+            const portada = document.getElementById("inicio");
 
 
-    // Cargar PDF
-    cargarPDF();
-
-});
+            portada.classList.add("ocultar");
 
 
+            setTimeout(() => {
 
-async function cargarPDF() {
+                portada.style.display = "none";
 
-    const pdf = await pdfjsLib.getDocument("carta.pdf").promise;
+                cargarPDF();
 
-    const contenedor = document.getElementById("pdf-container");
-
-
-    for(let numero = 1; numero <= pdf.numPages; numero++) {
+            }, 1500);
 
 
-        const pagina = await pdf.getPage(numero);
-
-
-        const viewportOriginal = pagina.getViewport({
-            scale: 1
         });
 
 
-        // Ajustar al ancho del celular/PC
-        const escala = window.innerWidth / viewportOriginal.width;
+
+        async function cargarPDF() {
+
+            const pdf = await pdfjsLib.getDocument("carta.pdf").promise;
+
+            const contenedor = document.getElementById("pdf-container");
 
 
-        const viewport = pagina.getViewport({
-            scale: escala
-        });
+            for (let numero = 1; numero <= pdf.numPages; numero++) {
 
 
-        const canvas = document.createElement("canvas");
-
-        const contexto = canvas.getContext("2d");
+                const pagina = await pdf.getPage(numero);
 
 
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+                const viewportOriginal = pagina.getViewport({
+                    scale: 1
+                });
 
 
-        contenedor.appendChild(canvas);
+                // Ajustar al ancho del celular/PC
+                const escala = window.innerWidth / viewportOriginal.width;
+
+
+                const viewport = pagina.getViewport({
+                    scale: escala
+                });
+
+
+                const canvas = document.createElement("canvas");
+
+                const contexto = canvas.getContext("2d");
+
+
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+
+                contenedor.appendChild(canvas);
 
 
 
-        await pagina.render({
+                await pagina.render({
 
-            canvasContext: contexto,
+                    canvasContext: contexto,
 
-            viewport: viewport
+                    viewport: viewport
 
-        }).promise;
+                }).promise;
 
 
-    }
+            }
 
-}
+            document.getElementById("cargando").style.opacity = "0";
 
-</script>
+            setTimeout(() => {
+
+                document.getElementById("cargando").style.display = "none";
+
+            }, 500);
+
+        }
+
+    </script>
 
 
 </body>
+
 </html>
