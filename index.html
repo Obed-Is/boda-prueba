@@ -221,7 +221,7 @@
             font-size: 46px;
             font-weight: 600;
             color: var(--tinta);
-            margin: 0 0 6px;
+            margin: 0 0 20px 0;
             line-height: 1.15;
         }
 
@@ -235,7 +235,7 @@
         .subtitulo {
             font-family: "Cormorant Garamond", serif;
             font-style: italic;
-            font-size: 18px;
+            font-size: 30px;
             color: #6b5c47;
             margin: 0 0 30px;
         }
@@ -655,6 +655,191 @@
         }
 
 
+        #contador-boda {
+
+            background: #faf5ec;
+
+            padding: 90px 25px;
+
+            text-align: center;
+
+            color: #3a2e22;
+
+            border-top: 1px solid #d8c7a1;
+
+        }
+
+        .ornamento {
+
+            font-size: 55px;
+
+            color: #b89252;
+
+            margin-bottom: 20px;
+
+        }
+
+        #contador-boda h2 {
+
+            font-family: "Playfair Display", serif;
+
+            font-size: 40px;
+
+            margin: 0;
+
+        }
+
+        .frase {
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 24px;
+
+            max-width: 650px;
+
+            margin: 25px auto 60px;
+
+            color: #6b5c47;
+
+        }
+
+        .contador {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .bloque {
+
+            width: 120px;
+
+            padding: 25px 10px;
+
+            background: white;
+
+            border: 1px solid #d9c9a3;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+
+        }
+
+        .bloque span {
+
+            display: block;
+
+            font-size: 52px;
+
+            font-family: "Playfair Display", serif;
+
+            color: #6e2a35;
+
+        }
+
+        .bloque small {
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 18px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            color: #a9823e;
+
+        }
+
+        .linea-final {
+
+            width: 140px;
+
+            height: 1px;
+
+            background: #b89252;
+
+            margin: 70px auto 35px;
+
+        }
+
+        .gracias {
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 26px;
+
+            font-style: italic;
+
+            color: #6b5c47;
+
+        }
+
+        .firma {
+
+            margin-top: 35px;
+
+            font-size: 28px;
+
+            color: #b89252;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 18px;
+
+            align-items: center;
+
+        }
+
+        .firma span {
+
+            font-family: "Playfair Display", serif;
+
+            color: #3a2e22;
+
+        }
+
+        @media(max-width:600px) {
+
+            #contador-boda {
+
+                padding: 70px 20px;
+
+            }
+
+            #contador-boda h2 {
+
+                font-size: 30px;
+
+            }
+
+            .frase {
+
+                font-size: 20px;
+
+            }
+
+            .bloque {
+
+                width: 42%;
+
+            }
+
+            .bloque span {
+
+                font-size: 42px;
+
+            }
+
+        }
+
+
 
 
         @keyframes sombraCarta {
@@ -719,10 +904,6 @@
 
             <div class="sello">M<span style="font-style:normal;color:#c9aa6c;margin:0 2px;">&</span>A</div>
 
-            <p class="texto-pequeno">
-                Tenemos el honor de invitarte
-            </p>
-
             <div class="divisor"><span></span></div>
 
             <h1>
@@ -730,14 +911,8 @@
             </h1>
 
             <p class="subtitulo">
-                Solicitamos el honor de tu presencia en nuestra boda
+                Nuestra Boda
             </p>
-
-            <div class="fecha">
-                <span class="dia">30</span>
-                <span class="separador"></span>
-                <span class="mes-anio">Diciembre<br>2026</span>
-            </div>
 
             <button id="abrir">
                 <span class="linea"></span>
@@ -776,14 +951,24 @@
     <script>
 
         const boton = document.getElementById("abrir");
-
-
         const musica = document.getElementById("musica");
+        let invitacionAbierta = false;
 
         musica.load();
 
+        document.addEventListener("click", async () => {
+            controladorPagina();
+        });
+
 
         boton.addEventListener("click", async () => {
+            controladorPagina();
+        });
+
+        async function controladorPagina() {
+            if (invitacionAbierta) return;
+
+            invitacionAbierta = true;
 
             try {
 
@@ -802,8 +987,7 @@
 
 
             cargarPDF();
-
-        });
+        }
 
 
 
@@ -858,6 +1042,8 @@
 
             }
 
+            crearContador();
+
             document.getElementById("cargando").style.opacity = "0";
 
             setTimeout(() => {
@@ -865,6 +1051,118 @@
                 document.getElementById("cargando").style.display = "none";
 
             }, 500);
+
+        }
+
+        function crearContador() {
+
+            const contenedor = document.getElementById("pdf-container");
+
+            const footer = document.createElement("section");
+
+            footer.id = "contador-boda";
+
+            footer.innerHTML = `
+
+        <div class="ornamento">❦</div>
+
+        <h2>
+            La cuenta regresiva ha comenzado
+        </h2>
+
+        <p class="frase">
+            Cada instante nos acerca al momento
+            más importante de nuestras vidas.
+        </p>
+
+        <div class="contador">
+
+            <div class="bloque">
+                <span id="dias">0</span>
+                <small>Días</small>
+            </div>
+
+            <div class="bloque">
+                <span id="horas">0</span>
+                <small>Horas</small>
+            </div>
+
+            <div class="bloque">
+                <span id="minutos">0</span>
+                <small>Minutos</small>
+            </div>
+
+            <div class="bloque">
+                <span id="segundos">0</span>
+                <small>Segundos</small>
+            </div>
+
+        </div>
+
+        <div class="linea-final"></div>
+
+        <p class="gracias">
+
+            Gracias por formar parte de este capítulo
+            tan especial de nuestra historia.
+
+        </p>
+
+        <div class="firma">
+
+            ❦
+
+            <span>Mayelin & Agustin</span>
+
+            ❦
+
+        </div>
+
+    `;
+
+            contenedor.appendChild(footer);
+
+            actualizarContador();
+
+            setInterval(actualizarContador, 1000);
+
+        }
+
+
+        function actualizarContador() {
+
+            const boda = new Date("December 30, 2026 17:00:00").getTime();
+
+            const ahora = new Date().getTime();
+
+            const diferencia = boda - ahora;
+
+            if (diferencia <= 0) {
+
+                document.getElementById("dias").innerHTML = 0;
+                document.getElementById("horas").innerHTML = 0;
+                document.getElementById("minutos").innerHTML = 0;
+                document.getElementById("segundos").innerHTML = 0;
+
+                return;
+
+            }
+
+            const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+
+            const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+
+            const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            document.getElementById("dias").textContent = dias;
+
+            document.getElementById("horas").textContent = horas;
+
+            document.getElementById("minutos").textContent = minutos;
+
+            document.getElementById("segundos").textContent = segundos;
 
         }
 
