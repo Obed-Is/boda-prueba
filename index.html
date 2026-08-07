@@ -976,6 +976,7 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc =
             'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
+        const pdfPromise = pdfjsLib.getDocument("carta.pdf").promise;
         const boton = document.getElementById("abrir");
         const musica = document.getElementById("musica");
         let invitacionAbierta = false;
@@ -1024,7 +1025,7 @@
 
         async function cargarPDF() {
 
-            const pdf = await pdfjsLib.getDocument("carta.pdf").promise;
+            const pdf = await pdfPromise;
 
             const contenedor = document.getElementById("pdf-container");
 
