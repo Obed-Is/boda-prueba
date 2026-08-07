@@ -1011,6 +1011,16 @@
             document.getElementById("inicio")
                 .classList.add("ocultar");
 
+            // Mostrar loader
+            const cargando = document.getElementById("cargando");
+            cargando.style.display = "flex";
+            cargando.style.opacity = "1";
+
+            // Esperar a que desaparezca la portada
+            setTimeout(() => {
+                cargarPDF();
+            }, 1200);
+
 
             cargarPDF();
         }
